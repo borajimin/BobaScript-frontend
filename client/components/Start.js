@@ -9,12 +9,15 @@ class Start extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.history);
   }
 
 
   render() {
     return (
       <div>
+      
+      hi graham
         Start
       </div>
     );
