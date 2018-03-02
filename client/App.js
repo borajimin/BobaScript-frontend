@@ -3,18 +3,12 @@ import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Finish from './components/Finish';
 import Start from './components/Start';
-import Test1 from './components/Test1';
+import Test from './components/Test';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
   }
-
-  componentDidMount() {
-  }
-
 
   render() {
     return (
@@ -25,7 +19,7 @@ class App extends React.Component {
         <Router>
           <div className="App-body">
             <Route exact path="/" component={Start}/>
-            <Route path="/test1" component={Test1}/>
+            <Route path="/test/:number" component={Test}/>
             <Route path="/finish" component={Finish}/>
           </div>
         </Router>
