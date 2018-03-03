@@ -1,0 +1,33 @@
+while right of jasmine2 > xCoordinate of boba do
+  boba will move
+end
+
+boba will turnLeft
+
+while yCoordinate of boba > top of jasmine2 do
+  boba will move
+end
+
+boba will turnRight
+
+while right of chai2 > xCoordinate of boba do
+  boba will move
+end
+
+boba will turnLeft
+
+while bottom of earlgrey1 < yCoordinate of boba do
+ boba will move
+end
+
+boba will turnRight
+
+while left of fran > xCoordinate of boba do
+ boba will move
+end
+
+boba will turnRight
+
+while top of fran > yCoordinate of boba do
+ boba will move
+end
