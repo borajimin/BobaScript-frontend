@@ -25,6 +25,7 @@ class Test extends React.Component {
     this.textareaHeight = 0;
     this.textareaWidth = 0;
     this.state = {
+      errorMessage: "",
       cup: {},
       code: null,
       boba: null,
@@ -38,10 +39,10 @@ class Test extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
     window.addEventListener("resize", () => this.updateDimensions());
-    // const cup = cups[this.props.match.params.number + 1];
+    const cup = cups[this.props.match.params.number - 1];
     this.setState({
-      // cup: new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value),
-      cup: new Cup(ctx, 100,200,200,100,10),
+      cup: new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value),
+      // cup: new Cup(ctx, 100,200,200,100,10),
       boba: new Boba(ctx, 250, 125, 20, "cyan"),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
@@ -75,10 +76,15 @@ class Test extends React.Component {
       bobaScript: this.state.code
     })
       .then(code => {
-        console.log(code);
-        console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-        eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-        this.state.boba.update();
+        console.log("code in onRun", code);
+        // console.log("code data", code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+        if(code.data.success){
+          eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba').replace(/\bcup\b/g, 'this.state.cup'));
+          this.state.boba.update();
+          this.setState({errorMessage: ""});
+        } else {
+          this.setState({errorMessage: `Error on line ${code.data.error.hash.line}`});
+        }
       })
       .catch(e => {
         console.log(e);
@@ -121,6 +127,10 @@ class Test extends React.Component {
               onChange={(e) => this.onCodeChange(e)}
               rows={Math.floor(this.state.windowHeight * 0.02)}
               cols={Math.floor(this.state.windowWidth * 0.06)}/>
+            {this.state.errorMessage.length > 0 ?
+              <div style={{"color": "red", "border": "2px solid red", "backgroundColor": "pink"}}>
+              Error Message:{this.state.errorMessage}
+              </div> : <div/>}
           </div>
           <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "flex-end"}}>
             <RaisedButton style={{"margin": "10px"}} onClick={() => this.onRun()} label="Run Code" primary={true} />

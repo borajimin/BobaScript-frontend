@@ -39,8 +39,7 @@ class Instructions extends React.Component {
 
           <br/>
 
-          BobaScript has two classes, <b>Boba</b> and <b>Cups</b>. Each class has <b>properties</b> and <b>methods</b>.</p>
-
+          BobaScript has two classes, <b>Boba</b> and <b>Cups</b>. Each class has <b>properties</b> and <b>methods</b>.</p><br/>
           <b>Properties</b> can be accessed through the keyword <b>of</b>.<br/>
           <b>Methods</b> can be accessed through the keyword <b>will</b>.
           <div>
@@ -70,13 +69,14 @@ class Instructions extends React.Component {
             <div>
               <h1>If statement </h1>
               <div><h3>Syntax: if condition do statement end</h3>
-
+              Conditional statements are used to perform different actions based on different conditions.
               </div>
-
             </div>
             <div>
               <h1>While loop</h1>
-
+              <div><h3>Syntax: while condition do statement end</h3>
+              The while loop loops through a block of code as long as a specified condition is true.
+              </div>
             </div>
             <div>
               <h1>Example BobaScript</h1>
