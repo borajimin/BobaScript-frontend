@@ -1,9 +1,10 @@
 import React from 'react';
 import Boba from '../Boba/Boba';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 import Question from './Question'
 
-const BASE_URL="http://localhost:3000";
+const BASE_URL="https://e5cdf00d.ngrok.io";
 
 
 class Test extends React.Component {
@@ -52,15 +53,19 @@ class Test extends React.Component {
   }
 
   onRun() {
+    let boba = this.state.boba;
+    console.log(boba);
     console.log("Runnging code: ", this.state.code);
-    axios.post(BASE_URL + "/submit", {
-      code: this.state.code
+    axios.post(BASE_URL + "/api/parseBobaScript", {
+      bobaScript: this.state.code
     })
       .then(code => {
+        let js = code.data.javascript;
+        console.log(js);
+        eval(js);
         this.setState({
-          transpiled: code,
+          transpiled: js,
         })
-        eval(code);
       })
       .catch(e => {
         console.log(e);
@@ -69,8 +74,8 @@ class Test extends React.Component {
 
   onSubmit() {
     console.log("Submitted code: ", this.state.code);
-    axios.post(BASE_URL + "/submit", {
-      code: this.state.code
+    axios.post(BASE_URL + "/api/parseBobaScript", {
+      bobaScript: this.state.code
     })
       .then(code => {
         console.log(code);
@@ -95,7 +100,7 @@ class Test extends React.Component {
         <button onClick={() => this.onRun()}>Run Code</button>
         <button onClick={() => this.onSubmit()}>Submit Code</button>
 
-        <div>{this.state.transpiled}</div>
+        {/* <div>{this.state.transpiled}</div> */}
       </div>
     );
   }
