@@ -32,6 +32,7 @@ top: top coordinate of the cup.
 bottom: bottom coordinate of the cup.
 
 # Example BobaScript
+```
 if xCoordinate of boba > yCoordinate of boba do
   boba will turnLeft
 end
@@ -41,3 +42,4 @@ while xCoordinate of boba > yCoordinate of boba do
 end
 
 finish
+```
