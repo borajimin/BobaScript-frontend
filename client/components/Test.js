@@ -2,12 +2,13 @@ import React from 'react';
 import Boba from '../Boba/Boba';
 import Cup from '../Boba/Cup';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 import Question from './Question'
 import RaisedButton from 'material-ui/RaisedButton';
 
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
-axios.defaults.withCredentials = true;
+
 
 const cups = [{
   top: 100,
@@ -37,6 +38,9 @@ class Test extends React.Component {
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
+    ctx.clear = () => {
+      ctx.clearRect(0, 0, 3000, 3000);
+    }
     window.addEventListener("resize", () => this.updateDimensions());
     // const cup = cups[this.props.match.params.number + 1];
     this.setState({
@@ -70,15 +74,16 @@ class Test extends React.Component {
   }
 
   onRun() {
+    // let boba = this.state.boba;
+    // console.log(boba);
     console.log("Runnging code: ", this.state.code);
     axios.post(BASE_URL + "/api/parseBobaScript", {
       bobaScript: this.state.code
     })
       .then(code => {
-        console.log(code);
-        console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+        console.log(code.data);
+        console.log(code.data.javascript);
         eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-        this.state.boba.update();
       })
       .catch(e => {
         console.log(e);
@@ -87,8 +92,8 @@ class Test extends React.Component {
 
   onSubmit() {
     console.log("Submitted code: ", this.state.code);
-    axios.post(BASE_URL + "/submit", {
-      code: this.state.code
+    axios.post(BASE_URL + "/api/parseBobaScript", {
+      bobaScript: this.state.code
     })
       .then(code => {
         console.log(code);
@@ -128,7 +133,7 @@ class Test extends React.Component {
           </div>
         </div>
 
-        <div>{this.state.transpiled}</div>
+        {/* <div>{this.state.transpiled}</div> */}
       </div>
     );
   }
