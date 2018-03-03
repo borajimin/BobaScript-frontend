@@ -118,7 +118,7 @@ class Test extends React.Component {
           width={this.state.windowWidth * 0.9}
           height={this.state.windowHeight * 0.5}/>
         <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
-          <div style={{}}>
+          <div>
             <Question question={this.props.match.params.number}/>
           </div>
           <div style={{"marginLeft": "100px", "marginTop": "20px"}}>
