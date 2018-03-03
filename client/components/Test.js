@@ -12,6 +12,10 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 class Test extends React.Component {
   constructor(props) {
     super(props);
+    this.canvasHeight = 0;
+    this.canvasWidth = 0;
+    this.textareaHeight = 0;
+    this.textareaWidth = 0;
     this.state = {
       code: null,
       boba: null,
@@ -24,6 +28,9 @@ class Test extends React.Component {
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
+    ctx.clear = () => {
+      ctx.clearRect(0, 0, 3000, 3000);
+    }
     window.addEventListener("resize", () => this.updateDimensions());
     this.setState({
       boba: new Boba(ctx, 250, 125, 20, "cyan"),
@@ -50,40 +57,17 @@ class Test extends React.Component {
     });
   }
 
-  toRight() {
-    this.state.boba.moveRight();
-    this.state.boba.update();
-  }
-
-  toLeft() {
-    this.state.boba.moveLeft();
-    this.state.boba.update();
-  }
-
-  toUp() {
-    this.state.boba.moveUp();
-    this.state.boba.update();
-  }
-
-  toDown() {
-    this.state.boba.moveDown();
-    this.state.boba.update();
-  }
-
   onRun() {
-    let boba = this.state.boba;
-    console.log(boba);
+    // let boba = this.state.boba;
+    // console.log(boba);
     console.log("Runnging code: ", this.state.code);
     axios.post(BASE_URL + "/api/parseBobaScript", {
       bobaScript: this.state.code
     })
       .then(code => {
-        let js = code.data.javascript;
-        console.log(js);
-        eval(js);
-        this.setState({
-          transpiled: js,
-        })
+        console.log(code.data);
+        console.log(code.data.javascript);
+        eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
       })
       .catch(e => {
         console.log(e);
@@ -109,9 +93,13 @@ class Test extends React.Component {
   }
 
   render() {
+
     return (
       <div style={{"marginTop": "80px"}}>
-        <canvas ref="canvas" width={this.state.windowWidth * 0.9} height={this.state.windowHeight * 0.5}/>
+        <canvas
+          ref="canvas"
+          width={this.state.windowWidth * 0.9}
+          height={this.state.windowHeight * 0.5}/>
         <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
           <div style={{}}>
             <Question question={this.props.match.params.number}/>
