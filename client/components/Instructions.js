@@ -20,7 +20,7 @@ class Instructions extends React.Component {
 
   render() {
     return (
-      <div style={{"marginTop": "80px", "flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1"}}>
+      <div style={{"marginTop": "80px", "flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1", "marginBottom": "80px"}}>
         <div style = {instruction}>
           {/* <img src={BobaScript} alt="logo"></img> */}
           <h1>BobaScript Documentations</h1>
