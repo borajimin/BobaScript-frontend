@@ -1,4 +1,5 @@
 import React from 'react';
+import BobaScript from '../../public/bobaScriptlogo.png';
 
 
 const instruction = {
@@ -28,6 +29,7 @@ class Instructions extends React.Component {
     return (
       <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1"}}>
         <div style = {instruction}>
+          {/* <img src={BobaScript} alt="logo"></img> */}
           <h1>BobaScript Documentations</h1>
           <p>BobaScript (BS) is a lightweight interpreted or JIT-compiled programming language.
         While it is most well-known as the scripting language for Horizons tests, many
