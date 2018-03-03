@@ -4,7 +4,8 @@ body {
 }
 
 canvas {
-  border: 1px solid #EEE;
+  margin-top: 20px;
+  border: 1px solid #52BAD1;
   border-radius: 5px;
 }
 
@@ -26,7 +27,6 @@ canvas {
 
 .App-body {
   padding-bottom: 100px;
-  padding-top: 100px;
 }
 
 .App-footer {
@@ -39,4 +39,11 @@ canvas {
 
 .startPageLogo {
   height: 600px;
+  top: 0;
+}
+
+
+.textBoxes {
+  display: flex;
+  flex-direction: column;
 }

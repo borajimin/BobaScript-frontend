@@ -28,16 +28,23 @@ const publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
 app.use(compress());
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(function (req, res) {
   res.setHeader('Content-Type', 'text/plain')
   res.write('you posted:\n')
   res.end(JSON.stringify(req.body, null, 2))
-})
+});
+
+app.use(function(req, res, next){
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, content-type, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
@@ -52,7 +59,7 @@ app.post('/submit', (req, res) => {
   res.send(req.body.code);
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 server.listen(port, () => {
   console.log(`Server listening on port ${port}!`);
 });
