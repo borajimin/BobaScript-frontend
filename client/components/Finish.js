@@ -9,10 +9,6 @@ class Finish extends React.Component {
     };
   }
 
-  componentDidMount() {
-  }
-
-
   render() {
     return (
       <div className="backgroundFinal">
@@ -21,7 +17,7 @@ class Finish extends React.Component {
           <div className="after"></div>
         </div>
         <div className="finalText">
-          <h1>CONGRATULATIONS</h1>
+          <h1>CONGRATULATIONS! {window.localStorage.getItem("name")}</h1>
         </div>
       </div>
     );
