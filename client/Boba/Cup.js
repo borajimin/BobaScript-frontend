@@ -5,21 +5,17 @@ const randomColor = () => {
   return COLORS[rand];
 }
 class Cup {
-  constructor(ctx, top, bottom, left, right, value) {
+  constructor(ctx, top, bottom, left, right, value, color) {
     this.top = top;
     this.bottom = bottom;
     this.left = left;
     this.right = right;
     this.value = value;
-    this.color = (typeof value === "string") ? value : randomColor();
+    this.color = color;
     this.ctx = ctx;
   }
 
   draw() {
-    console.log("IN DRAW");
-    console.log(this.bottom - this.top);
-    console.log(this.right - this.left);
-    console.log(this.color);
     this.ctx.beginPath();
     this.ctx.rect(this.left, this.top, this.right - this.left, this.bottom - this.top);
     this.ctx.strokeStyle = this.color;

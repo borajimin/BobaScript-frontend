@@ -28,7 +28,31 @@ const CUPS = [[{
   right: 600,
   left: 500,
   value: 10
+}], [],
+[ {
+    top: 100,
+    bottom: 200,
+    right: 400,
+    left: 300,
+    value: 12,
+    color: "green"
+  },
+  {
+    top: 100,
+    bottom: 200,
+    right: 700,
+    left: 600,
+    value: 4,
+    color: "red"
 }]];
+
+const BOBAS = [{}, {}, {
+  xCoordinate: 500,
+  yCoordinate: 150,
+  color: "cyan"
+}]
+
+
 
 class Test extends React.Component {
   constructor(props) {
@@ -55,10 +79,11 @@ class Test extends React.Component {
       ctx.clearRect(0, 0, 3000, 3000);
     }
     window.addEventListener("resize", () => this.updateDimensions());
-    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value));
+    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
+    let { xCoordinate, yCoordinate, color } = BOBAS[this.props.match.params.number - 1];
     this.setState({
       cup: cups,
-      boba: new Boba(ctx, 250, 125, 20, "cyan", cups),
+      boba: new Boba(ctx, xCoordinate, yCoordinate, 20, color, cups, this.makeGame()),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
@@ -76,6 +101,22 @@ class Test extends React.Component {
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => this.state.boba.update());
+  }
+
+  makeGame() {
+    let cupsVisited = Array(CUPS[2]).fill(false);
+
+    return (boba) => {
+      this.state.cup.map((cup, index) => {
+        if( (boba.xCoordinate < cup.right && boba.xCoordinate > cup.left) || (boba.yCoordinate > cup.bottom && boba.yCoordinate < cup.top)){
+          cup.value += cupsVisited[index] ? 0 : (index + 2) ;
+          if(!cupsVisited[index]) cupsVisited[index] = true;
+        } else {
+          cupsVisited[index] = false;
+        }
+      })
+      return (this.state.cup[0].value - this.state.cup[1].value);
+    }
   }
 
   onCodeChange(e) {
@@ -99,8 +140,13 @@ class Test extends React.Component {
             error: `Error at line: ${code.data.error.hash.line}; Expected: ${code.data.error.hash.expected}`
           });
         } else {
-          console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-          eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba').replace(/\bcup\b/g, 'this.state.cup'));
+          eval(code.data.javascript
+           .replace(/\bboba\b/g, 'this.state.boba')
+           .replace(/\bjasmine\b/g, 'this.state.cup[0]')
+           .replace(/\bchai\b/g, 'this.state.cup[1]')
+           .replace(/\bearlgrey\b/g, 'this.state.cup[2]')
+           .replace(/\bred\b/g, 'this.state.cup[1]')
+           .replace(/\bgreen\b/g, 'this.state.cup[0]'));
           this.state.boba.update();
         }
       })
