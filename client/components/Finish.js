@@ -1,4 +1,5 @@
 import React from 'react';
+import BobaScript from '../../public/bobaScriptlogo.png'
 
 
 class Finish extends React.Component {
@@ -14,7 +15,8 @@ class Finish extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
+        <img  className="startPageLogo" src={BobaScript} />
         Finish
       </div>
     );
