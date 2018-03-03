@@ -20,13 +20,11 @@ class Boba {
   }
 
   turnRight(){
-    this.direction = (this.direction + 1 ) % 4;
-    console.log("inside turnRight", this.direction);
+    this.direction = (this.direction + 1) % 4;
   }
 
   turnLeft(){
-    this.direction = (this.direction - 1 )% 4;
-    console.log("inside turnLeft", this.direction);
+    this.direction = (this.direction - 1) % 4;
   }
 
   move() {
