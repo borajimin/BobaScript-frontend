@@ -8,9 +8,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
 const BOBAS = [{
-  x: 250,
-  y: 125,
-  color: "lightpink"
+  x: 50,
+  y: 50,
+  color: "lightblue"
 }, {
   x: 22,
   y: 275,
@@ -21,6 +21,38 @@ const BOBAS = [{
   color: "lightpink"
 }]
 const CUPS = [[{
+  top: 30,
+  bottom: 80,
+  right: 200,
+  left: 150,
+  value: 10,
+  color: "black"
+  //bobas
+}, {
+  top: 200,
+  bottom: 250,
+  right: 350,
+  left: 300,
+  value: 10,
+  color: "lightgreen"
+  //oolong
+}, {
+  top: 200,
+  bottom: 250,
+  right: 500,
+  left: 450,
+  value: 10,
+  color: "lightgrey"
+  //milk
+}, {
+  top: 100,
+  bottom: 150,
+  right: 650,
+  left: 600,
+  value: 10,
+  color: "yellow"
+  //jelly
+}],[{
   top: 100,
   bottom: 200,
   right: 600,
@@ -170,6 +202,7 @@ class Test extends React.Component {
           });
         } else {
           console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+          console.log("this.state.cup", this.state.cup);
           eval(code.data.javascript
             .replace(/\bboba\b/g, 'this.state.boba')
             .replace(/\bjasmine1\b/g, 'this.state.cup[0]')
@@ -181,7 +214,11 @@ class Test extends React.Component {
             .replace(/\bearlgrey1\b/g, 'this.state.cup[6]')
             .replace(/\bfran\b/g, 'this.state.cup[7]')
             .replace(/\bred\b/g, 'this.state.cup[1]')
-            .replace(/\bgreen\b/g, 'this.state.cup[0]'))
+            .replace(/\bgreen\b/g, 'this.state.cup[0]')
+            .replace(/\btapioca\b/g, 'this.state.cup[0]')
+            .replace(/\boolong\b/g, 'this.state.cup[1]')
+            .replace(/\bmilk\b/g, 'this.state.cup[2]')
+            .replace(/\bjelly\b/g, 'this.state.cup[3]'))
           this.state.boba.update();
         }
       })
