@@ -2,21 +2,33 @@ import React from 'react';
 import Boba from '../Boba/Boba';
 import Cup from '../Boba/Cup';
 import axios from 'axios';
-axios.defaults.withCredentials = true;
-import Question from './Question'
+import Question from './Question';
+import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
 
 
-const cups = [{
+const CUPS = [[{
+  top: 300,
+  bottom: 400,
+  right: 200,
+  left: 300,
+  value: 10
+}, {
+  top: 200,
+  bottom: 350,
+  right: 600,
+  left: 450,
+  value: 10
+}, {
   top: 100,
   bottom: 400,
   right: 300,
   left: 200,
   value: 10
-}];
+}]];
 
 class Test extends React.Component {
   constructor(props) {
@@ -33,6 +45,7 @@ class Test extends React.Component {
       transpiled: null,
       windowHeight: 0,
       windowWidth: 0,
+      error: null
     };
   }
 
@@ -43,16 +56,14 @@ class Test extends React.Component {
       ctx.clearRect(0, 0, 3000, 3000);
     }
     window.addEventListener("resize", () => this.updateDimensions());
-    const cup = cups[this.props.match.params.number - 1];
+    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value));
     this.setState({
-      cup: new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value),
-      // cup: new Cup(ctx, 100,200,200,100,10),
+      cup: cups,
       boba: new Boba(ctx, 250, 125, 20, "cyan"),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
-      console.log("this.state.cup", this.state.cup);
-      this.state.cup.draw();
+      this.state.cup.map(c => c.draw());
       this.state.boba.update();
     });
   }
@@ -83,14 +94,15 @@ class Test extends React.Component {
       bobaScript: this.state.code
     })
       .then(code => {
-        console.log("code in onRun", code);
-        // console.log("code data", code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-        if(code.data.success){
+        console.log(code);
+        if(!code.data.success) {
+          this.setState({
+            error: `Error at line: ${code.data.error.hash.line}; Expected: ${code.data.error.hash.expected}`
+          });
+        } else {
+          console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
           eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba').replace(/\bcup\b/g, 'this.state.cup'));
           this.state.boba.update();
-          this.setState({errorMessage: ""});
-        } else {
-          this.setState({errorMessage: `Error on line ${code.data.error.hash.line}`});
         }
       })
       .catch(e => {
@@ -127,6 +139,7 @@ class Test extends React.Component {
         <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
           <div>
             <Question question={this.props.match.params.number}/>
+            {(this.state.error) ? <Error message={this.state.error}/> : <div></div>}
           </div>
           <div style={{"marginLeft": "100px", "marginTop": "20px"}}>
             <textarea
