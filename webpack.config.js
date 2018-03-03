@@ -21,6 +21,11 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.png$/,
+        exclude: /node_modules/,
+        loader: 'file-loader?name=images/[name].[ext]'
       }
     ]
   },

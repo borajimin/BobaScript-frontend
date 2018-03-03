@@ -2,14 +2,16 @@ import React from 'react';
 import Boba from '../Boba/Boba';
 import axios from 'axios';
 
+const BASE_URL="http://localhost:3000";
+
 
 class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       code: "",
-      direction: null,
       boba: null,
+      transpiled: null,
     };
   }
 
@@ -50,10 +52,28 @@ class Test extends React.Component {
 
   onRun() {
     console.log("Runnging code: ", this.state.code);
+    axios.post(BASE_URL + "/submit", {
+      code: this.state.code
+    })
+      .then(code => {
+        eval(code);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   onSubmit() {
     console.log("Submitted code: ", this.state.code);
+    axios.post(BASE_URL + "/submit", {
+      code: this.state.code
+    })
+      .then(code => {
+        eval(code);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   render() {
@@ -69,7 +89,7 @@ class Test extends React.Component {
         <button onClick={() => this.toLeft()}>Left</button>
         <button onClick={() => this.toUp()}>Up</button>
         <button onClick={() => this.toDown()}>Down</button>
-        <script>{this.state.code}</script>
+        <div>{this.state.transpiled}</div>
       </div>
     );
   }
