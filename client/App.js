@@ -18,6 +18,8 @@ class App extends React.Component {
     super(props);
   }
 
+
+
   componentDidMount() {
   }
 
@@ -36,7 +38,7 @@ class App extends React.Component {
               <MenuItem primaryText="Start"  onClick={() => this.props.history.push('/')} />
               <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test')} />
               <MenuItem primaryText="Finish" onClick={() => this.props.history.push('/finish')} />
-              <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')} />
+              <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
             </IconMenu>}
           title="BobaScript"
           iconClassNameRight="muidocs-icon-navigation-expand-more"

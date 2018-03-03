@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/run', (req, res) => {
-  console.log(req.body);
+  console.log(req.body.code);
   res.send(req.body.code);
 });
 
