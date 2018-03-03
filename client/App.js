@@ -3,8 +3,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import Finish from './components/Finish';
 import Start from './components/Start';
-import Test from './components/Test';
 import Instructions from './components/Instructions';
+import Test from './components/Test';
 import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
@@ -35,7 +35,7 @@ class App extends React.Component {
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
             >
               <MenuItem primaryText="Start"  onClick={() => this.props.history.push('/')} />
-              <MenuItem primaryText="Test 1" onClick={() => this.props.history.push('/test1')} />
+              <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test')} />
               <MenuItem primaryText="Finish" onClick={() => this.props.history.push('/finish')} />
               <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
             </IconMenu>}
