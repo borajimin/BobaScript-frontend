@@ -103,33 +103,27 @@ const CUPS = [[{
   right: 1250,
   left: 1200,
   color: "black"
-}], [
-  {
-      top: 100,
-      bottom: 200,
-      right: 400,
-      left: 300,
-      value: 12,
-      color: "green"
-    },
-    {
-      top: 100,
-      bottom: 200,
-      right: 700,
-      left: 600,
-      value: 4,
-      color: "red"
-  }
-]];
+}], [{
+  top: 100,
+  bottom: 200,
+  right: 400,
+  left: 300,
+  value: 12,
+  color: "green"
+},
+{
+  top: 100,
+  bottom: 200,
+  right: 700,
+  left: 600,
+  value: 4,
+  color: "red"
+}]];
 
 
 class Test extends React.Component {
   constructor(props) {
     super(props);
-    this.canvasHeight = 0;
-    this.canvasWidth = 0;
-    this.textareaHeight = 0;
-    this.textareaWidth = 0;
     this.canvas = null;
     this.ctx = null;
     this.state = {
@@ -162,6 +156,10 @@ class Test extends React.Component {
       this.state.cup.map(c => c.draw());
       this.state.boba.update();
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    location.reload();
   }
 
   onReset() {
@@ -253,22 +251,10 @@ class Test extends React.Component {
       });
   }
 
-  onSubmit() {
-    console.log("Submitted code: ", this.state.code);
-    axios.post(BASE_URL + "/api/parseBobaScript", {
-      bobaScript: this.state.code
-    })
-      .then(code => {
-        console.log(code);
-        this.setState({
-          transpiled: code,
-        })
-        window.localStorage.setItem("test", this.props.match.params.number + 1);
-        eval(code);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  onNext() {
+    let num = parseInt(this.props.match.params.number, 10) + 1;
+    let whereTo = (num > 3) ? "/finish" : `/test/${num}`;
+    this.props.history.push(whereTo);
   }
 
   render() {
@@ -293,7 +279,7 @@ class Test extends React.Component {
           <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "flex-end"}}>
             <RaisedButton style={{"margin": "10px"}} onClick={() => this.onReset()} label="Reset" secondary={true} />
             <RaisedButton style={{"margin": "10px"}} onClick={() => this.onRun()} label="Run Code" primary={true} />
-            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onSubmit()} label="Next" secondary={true} />
+            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onNext()} label="Next" secondary={true} />
           </div>
         </div>
       </div>
