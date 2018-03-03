@@ -7,25 +7,54 @@ import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
+
+
 const BOBAS = [{
-  x: 250,
-  y: 125,
-  color: "lightpink"
+  x: 50,
+  y: 50,
+  color: "lightblue"
 }, {
   x: 22,
   y: 275,
   color: "lightpink"
 }, {
-  x: 250,
-  y: 125,
-  color: "lightpink"
+  x: 500,
+  y: 150,
+  color: "cyan"
 }]
+
 const CUPS = [[{
+  top: 30,
+  bottom: 80,
+  right: 200,
+  left: 150,
+  value: 10,
+  color: "black"
+  //bobas
+}, {
+  top: 200,
+  bottom: 250,
+  right: 350,
+  left: 300,
+  value: 10,
+  color: "lightgreen"
+  //oolong
+}, {
+  top: 200,
+  bottom: 250,
+  right: 500,
+  left: 450,
+  value: 10,
+  color: "lightgrey"
+  //milk
+}, {
   top: 100,
-  bottom: 200,
-  right: 600,
-  left: 500,
-  value: 20
+  bottom: 150,
+  right: 650,
+  left: 600,
+  value: 10,
+  color: "yellow"
+  //jelly
 }], [{
   top: 400,
   bottom: 450,
@@ -74,13 +103,25 @@ const CUPS = [[{
   right: 1250,
   left: 1200,
   color: "black"
-}], [{
-  top: 200,
-  bottom: 350,
-  right: 600,
-  left: 450,
-  value: 5
-}]];
+}], [
+  {
+      top: 100,
+      bottom: 200,
+      right: 400,
+      left: 300,
+      value: 12,
+      color: "green"
+    },
+    {
+      top: 100,
+      bottom: 200,
+      right: 700,
+      left: 600,
+      value: 4,
+      color: "red"
+  }
+]];
+
 
 class Test extends React.Component {
   constructor(props) {
@@ -111,10 +152,10 @@ class Test extends React.Component {
     }
     window.addEventListener("resize", () => this.updateDimensions());
     const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(this.ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
-    const boba = BOBAS[this.props.match.params.number - 1];
+    let { x, y, color } = BOBAS[this.props.match.params.number - 1];
     this.setState({
       cup: cups,
-      boba: new Boba(this.ctx, boba.x, boba.y, 20, boba.color, cups),
+      boba: new Boba(this.ctx, x, y, 20, color, cups, this.makeGame()),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
@@ -131,7 +172,7 @@ class Test extends React.Component {
     const boba = BOBAS[this.props.match.params.number - 1];
     this.setState({
       cup: cups,
-      boba: new Boba(this.ctx, boba.x, boba.y, 20, boba.color, cups),
+      boba: new Boba(this.ctx, boba.x, boba.y, 20, boba.color, cups, this.props.match.params.number === 3 ? this.makeGame() : null),
     }, () => {
       this.state.cup.map(c => c.draw());
       this.state.boba.update();
@@ -147,6 +188,22 @@ class Test extends React.Component {
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => this.state.boba.update());
+  }
+
+  makeGame() {
+    let cupsVisited = Array(CUPS[2]).fill(false);
+
+    return (boba) => {
+      this.state.cup.map((cup, index) => {
+        if( (boba.xCoordinate < cup.right && boba.xCoordinate > cup.left) || (boba.yCoordinate > cup.bottom && boba.yCoordinate < cup.top)){
+          cup.value += cupsVisited[index] ? 0 : (index + 2) ;
+          if(!cupsVisited[index]) cupsVisited[index] = true;
+        } else {
+          cupsVisited[index] = false;
+        }
+      })
+      return (this.state.cup[0].value - this.state.cup[1].value);
+    }
   }
 
   onCodeChange(e) {
@@ -169,7 +226,9 @@ class Test extends React.Component {
             Expected: ${code.data.error.hash.expected}`,
           });
         } else {
+
           console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+          console.log("this.state.cup", this.state.cup);
           eval(code.data.javascript
             .replace(/\bboba\b/g, 'this.state.boba')
             .replace(/\bjasmine1\b/g, 'this.state.cup[0]')
@@ -181,7 +240,11 @@ class Test extends React.Component {
             .replace(/\bearlgrey1\b/g, 'this.state.cup[6]')
             .replace(/\bfran\b/g, 'this.state.cup[7]')
             .replace(/\bred\b/g, 'this.state.cup[1]')
-            .replace(/\bgreen\b/g, 'this.state.cup[0]'))
+            .replace(/\bgreen\b/g, 'this.state.cup[0]')
+            .replace(/\btapioca\b/g, 'this.state.cup[0]')
+            .replace(/\boolong\b/g, 'this.state.cup[1]')
+            .replace(/\bmilk\b/g, 'this.state.cup[2]')
+            .replace(/\bjelly\b/g, 'this.state.cup[3]'))
           this.state.boba.update();
         }
       })
@@ -230,7 +293,7 @@ class Test extends React.Component {
           <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "flex-end"}}>
             <RaisedButton style={{"margin": "10px"}} onClick={() => this.onReset()} label="Reset" secondary={true} />
             <RaisedButton style={{"margin": "10px"}} onClick={() => this.onRun()} label="Run Code" primary={true} />
-            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onSubmit()} label="Submit Code" secondary={true} />
+            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onSubmit()} label="Next" secondary={true} />
           </div>
         </div>
       </div>
