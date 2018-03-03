@@ -58,7 +58,7 @@ class Test extends React.Component {
     const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value));
     this.setState({
       cup: cups,
-      boba: new Boba(ctx, 250, 125, 20, "cyan"),
+      boba: new Boba(ctx, 250, 125, 20, "cyan", cups),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {

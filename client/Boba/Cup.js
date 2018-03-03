@@ -16,9 +16,12 @@ class Cup {
   }
 
   draw() {
-    console.log(this.top, this.bottom, this.left, this.right, this.value);
+    console.log("IN DRAW");
+    console.log(this.bottom - this.top);
+    console.log(this.right - this.left);
+    console.log(this.color);
     this.ctx.beginPath();
-    this.ctx.rect(this.top, this.left, this.right - this.left, this.bottom - this.top);
+    this.ctx.rect(this.left, this.top, this.right - this.left, this.bottom - this.top);
     this.ctx.strokeStyle = this.color;
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
