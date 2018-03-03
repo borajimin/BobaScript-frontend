@@ -10,6 +10,7 @@ class Finish extends React.Component {
   }
 
   componentDidMount() {
+    new Audio ("/finalSong.mp3").play()
   }
 
 
