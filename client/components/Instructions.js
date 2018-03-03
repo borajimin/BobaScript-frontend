@@ -68,6 +68,17 @@ class Instructions extends React.Component {
               </div>
             </div>
             <div>
+              <h1>If statement </h1>
+              <div><h3>Syntax: if condition do statement end</h3>
+
+              </div>
+
+            </div>
+            <div>
+              <h1>While loop</h1>
+
+            </div>
+            <div>
               <h1>Example BobaScript</h1>
               <pre>
                 if xCoordinate of boba > yCoordinate of boba do <br/>
