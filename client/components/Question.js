@@ -5,9 +5,17 @@ class Question extends React.Component {
   constructor(props) {
     super(props);
     this.question = {
-      1: "The nature series 'Life Story,' a collaboration between BBC and The Open University, shows how animals try to overcome the challenges they face throughout their lives to eventually continue their bloodlines by having offspring. The show, narrated by Sir David Attenborough, aims to give viewers an idea of what it is like for animals who face difficult choices in nature. Episodes document the journey of animals surviving the hazards of being young through learning how to survive as an adult, climbing the social ladder, getting a mate and becoming a parent.",
-      2: "Hello, world",
-      3: "This is the last question, the ultimate challenge, the final boss. Your task is simple... You see those two squares? They both have an unknown value associated with them. Upon touching the green square, it's value will increase by 2, while the red sqaure's value will increase by 3. Devise an algorithm in BobaScript to modify the values of both respective squares so that they equal each other. "
+      1: "You are making boba and you need all the ingredients. Write an algorithm that will allow you to get tapioca(black square), greenTea(green square), milk(grey square), jelly(yellow square) with shortest time.",
+      2: `Our dear friend Boba wants to visit each tea shops once on the way to Fran's house.
+       Each boxes represents a tea shop
+       and each color of the boxes represent the types of tea.
+       Jasmine tea shops are light green, chai tea shops are chai,
+       earlgrey tea shops are brown, Fran's house is black.
+       Jasmine tea shop: light green;
+       Chai tea shop: chai;
+       Earlgrey tea shop: brown;
+       Fran's house: black;`,
+       3: "This is the last question, the ultimate challenge, the final boss. Your task is simple... You see those two squares? They both have an unknown value associated with them. Upon touching the green square, it's value will increase by 2, while the red sqaure's value will increase by 3. Devise an algorithm in BobaScript to modify the values of both respective squares so that they equal each other. "
     }
   }
 

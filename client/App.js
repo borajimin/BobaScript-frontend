@@ -19,12 +19,6 @@ class App extends React.Component {
     super(props);
   }
 
-
-
-  componentDidMount() {
-  }
-
-
   render() {
     return (
       <div className="App">
@@ -36,12 +30,11 @@ class App extends React.Component {
               anchorOrigin={{horizontal: 'left', vertical: 'top'}}
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
             >
-              <MenuItem primaryText="Start"  onClick={() => this.props.history.push('/')} />
+              <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
               <MenuItem primaryText="Test 1" onClick={() => this.props.history.push('/test/1')} />
               <MenuItem primaryText="Test 2" onClick={() => this.props.history.push('/test/2')} />
               <MenuItem primaryText="Test 3" onClick={() => this.props.history.push('/test/3')} />
               <MenuItem primaryText="Finish" onClick={() => this.props.history.push('/finish')} />
-              <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
             </IconMenu>}
           title="BobaScript"
           titleStyle={{"fontWeight": "bold"}}

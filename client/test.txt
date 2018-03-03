@@ -1,0 +1,20 @@
+while xCoordinate of boba < right of oolong do
+   boba will move
+  end
+
+boba will turnRight
+
+while yCoordinate of boba < top of oolong do
+   boba will move
+   end
+
+
+boba will turnLeft
+while xCoordinate of boba < right of jelly do
+    boba will move
+    end
+
+boba will turnLeft
+while yCoordinate of boba > top of jelly do
+   boba will move
+   end

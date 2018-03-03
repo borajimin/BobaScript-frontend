@@ -10,8 +10,8 @@ class Cup {
     this.bottom = bottom;
     this.left = left;
     this.right = right;
-    this.value = value;
-    this.color = color;
+    this.value = (!value) ? 0 : value;
+    this.color = (!color) ? randomColor() : color;
     this.ctx = ctx;
   }
 
