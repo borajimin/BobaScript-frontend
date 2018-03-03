@@ -39,4 +39,11 @@ canvas {
 
 .startPageLogo {
   height: 600px;
+  top: 0;
+}
+
+
+.textBoxes {
+  display: flex;
+  flex-direction: column;
 }

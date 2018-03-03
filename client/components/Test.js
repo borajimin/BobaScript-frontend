@@ -2,6 +2,8 @@ import React from 'react';
 import Boba from '../Boba/Boba';
 import axios from 'axios';
 import Question from './Question'
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
 axios.defaults.withCredentials = true;
@@ -88,19 +90,27 @@ class Test extends React.Component {
   render() {
 
     return (
-      <div>
+      <div style={{"marginTop": "80px"}}>
         <canvas
           ref="canvas"
           width={this.state.windowWidth * 0.9}
           height={this.state.windowHeight * 0.5}/>
-        <Question question={this.props.match.params.number}/>
-        <textarea
-          onChange={(e) => this.onCodeChange(e)}
-          rows={Math.floor(this.state.windowHeight * 0.02)}
-          cols={Math.floor(this.state.windowWidth * 0.06)}/>
-
-        <button onClick={() => this.onRun()}>Run Code</button>
-        <button onClick={() => this.onSubmit()}>Submit Code</button>
+        <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
+          <div style={{}}>
+            <Question question={this.props.match.params.number}/>
+          </div>
+          <div style={{"marginLeft": "100px", "marginTop": "20px"}}>
+            <textarea
+              style={{"padding": "10px"}}
+              onChange={(e) => this.onCodeChange(e)}
+              rows={Math.floor(this.state.windowHeight * 0.02)}
+              cols={Math.floor(this.state.windowWidth * 0.06)}/>
+          </div>
+          <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "flex-end"}}>
+            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onRun()} label="Run Code" primary={true} />
+            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onSubmit()} label="Submit Code" secondary={true} />
+          </div>
+        </div>
 
         <div>{this.state.transpiled}</div>
       </div>
