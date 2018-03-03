@@ -10,6 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import BobaScript from '../public/bobalogo2.png'
 
 
 
@@ -43,6 +44,8 @@ class App extends React.Component {
               <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
             </IconMenu>}
           title="BobaScript"
+          titleStyle={{"fontWeight": "bold"}}
+          iconElementRight = {<img src={BobaScript} width="50px" height="50px" alt="Logo" />}
           className="App-header"
         />
         <div className="App-body">
@@ -58,9 +61,9 @@ class App extends React.Component {
             <FlatButton label="JOBS" style={{"color": 'white'}} />
           </div>
         </footer>
-        </div>
-        );
-      }
-    }
+      </div>
+    );
+  }
+}
 
-    export default App;
+export default App;

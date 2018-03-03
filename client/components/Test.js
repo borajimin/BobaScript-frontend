@@ -11,6 +11,21 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 
 
 const CUPS = [[{
+<<<<<<< HEAD
+=======
+  top: 300,
+  bottom: 400,
+  right: 300,
+  left: 200,
+  value: 10
+}, {
+  top: 200,
+  bottom: 350,
+  right: 600,
+  left: 450,
+  value: 10
+}, {
+>>>>>>> 2cf0aa70d7d2574c8b4b6389a881e426e315d97a
   top: 100,
   bottom: 200,
   right: 200,
@@ -62,7 +77,7 @@ class Test extends React.Component {
     const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value));
     this.setState({
       cup: cups,
-      boba: new Boba(ctx, 250, 125, 20, "cyan"),
+      boba: new Boba(ctx, 250, 125, 20, "cyan", cups),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
