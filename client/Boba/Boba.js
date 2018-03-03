@@ -9,6 +9,7 @@ class Boba {
     this.color = color;
     this.ctx = ctx;
     this.direction = 2;
+    this.count = 0;
     this.directionalMoves = {
       right: () => this.moveRight(),
       left: () => this.moveLeft(),
@@ -26,13 +27,16 @@ class Boba {
   }
 
   move() {
+    this.count += 1;
     this.directionalMoves[directions[this.direction]]();
-    this.update();
+    let x = this.xCoordinate, y = this.yCoordinate;
+    setTimeout( () => this.update(x, y), 50 * this.count )
   }
 
-  update() {
+  update(x = this.xCoordinate, y = this.yCoordinate) {
+    this.ctx.clear();
     this.ctx.beginPath();
-    this.ctx.arc(this.xCoordinate, this.yCoordinate, this.radius, 0, 2*Math.PI);
+    this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
     this.ctx.strokeStyle = this.color;
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
@@ -41,27 +45,28 @@ class Boba {
 
   moveRight() {
     if(this.xCoordinate < 3000){
-      this.xCoordinate += 7;
+      this.xCoordinate += 3;
     }
   }
 
   moveLeft() {
     if(this.xCoordinate > 0){
-      this.xCoordinate -= 7;
+      this.xCoordinate -= 3;
     }
   }
 
   moveUp() {
     if(this.yCoordinate > 0) {
-      this.yCoordinate -= 7;
+      this.yCoordinate -= 3;
     }
   }
 
   moveDown() {
     if(this.yCoordinate < 3000){
-      this.yCoordinate += 7;
+      this.yCoordinate += 3;
     }
   }
+
 }
 
 export default Boba;
