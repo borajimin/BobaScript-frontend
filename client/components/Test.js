@@ -13,8 +13,8 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 const CUPS = [[{
   top: 300,
   bottom: 400,
-  right: 200,
-  left: 300,
+  right: 300,
+  left: 200,
   value: 10
 }, {
   top: 200,
@@ -38,7 +38,7 @@ class Test extends React.Component {
     this.textareaHeight = 0;
     this.textareaWidth = 0;
     this.state = {
-      cup: {},
+      cup: null,
       code: null,
       boba: null,
       transpiled: null,
@@ -86,8 +86,6 @@ class Test extends React.Component {
   }
 
   onRun() {
-    // let boba = this.state.boba;
-    // console.log(boba);
     console.log("Runnging code: ", this.state.code);
     axios.post(BASE_URL + "/api/parseBobaScript", {
       bobaScript: this.state.code
@@ -136,10 +134,8 @@ class Test extends React.Component {
           width={this.state.windowWidth * 0.9}
           height={this.state.windowHeight * 0.5}/>
         <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
-          <div style={{}}>
-            <Question question={this.props.match.params.number}/>
-            {(this.state.error) ? <Error message={this.state.error}/> : <div></div>}
-          </div>
+          <Question question={this.props.match.params.number}/>
+          {(this.state.error) ? <Error message={this.state.error}/> : <div></div>}
           <div style={{"marginLeft": "100px", "marginTop": "20px"}}>
             <textarea
               style={{"padding": "10px"}}

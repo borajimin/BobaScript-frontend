@@ -18,12 +18,6 @@ class App extends React.Component {
     super(props);
   }
 
-
-
-  componentDidMount() {
-  }
-
-
   render() {
     return (
       <div className="App">
