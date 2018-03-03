@@ -2,7 +2,7 @@ const directions = ["left", "up", "right", "down"];
 
 class Boba {
 
-  constructor(ctx, x, y, radius, color) {
+  constructor(ctx, x, y, radius, color, cups) {
     this.xCoordinate = x;
     this.yCoordinate = y;
     this.radius = radius;
@@ -16,6 +16,7 @@ class Boba {
       up: () => this.moveUp(),
       down: () => this.moveDown()
     };
+    this.cups = cups;
   }
 
   turnRight(){
@@ -27,20 +28,27 @@ class Boba {
   }
 
   move() {
-    this.count += 1;
+    this.count++;
     this.directionalMoves[directions[this.direction]]();
     let x = this.xCoordinate, y = this.yCoordinate;
-    setTimeout( () => this.update(x, y), 50 * this.count )
+    setTimeout( () => this.update(x, y), 2000 + 50 * this.count )
   }
 
   update(x = this.xCoordinate, y = this.yCoordinate) {
     this.ctx.clear();
+
+    this.cupdate();
+
     this.ctx.beginPath();
     this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
     this.ctx.strokeStyle = this.color;
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
     this.ctx.stroke();
+  }
+
+  cupdate() {
+    this.cups.map(cup => cup.draw())
   }
 
   moveRight() {
