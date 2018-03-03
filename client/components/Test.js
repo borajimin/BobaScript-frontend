@@ -1,6 +1,7 @@
 import React from 'react';
 import Boba from '../Boba/Boba';
 import axios from 'axios';
+import Question from './Question'
 
 const BASE_URL="http://localhost:3000";
 
@@ -9,7 +10,7 @@ class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "",
+      code: null,
       boba: null,
       transpiled: null,
     };
@@ -56,6 +57,9 @@ class Test extends React.Component {
       code: this.state.code
     })
       .then(code => {
+        this.setState({
+          transpiled: code,
+        })
         eval(code);
       })
       .catch(e => {
@@ -69,6 +73,11 @@ class Test extends React.Component {
       code: this.state.code
     })
       .then(code => {
+        console.log(code);
+        this.setState({
+          transpiled: code,
+        })
+        window.localStorage.setItem("test", this.props.match.params.number + 1);
         eval(code);
       })
       .catch(e => {
@@ -79,16 +88,13 @@ class Test extends React.Component {
   render() {
     return (
       <div>
-        {this.props.match.params.number}
-        Test
-        <canvas ref="canvas" width="500" height="250"/>
-        <textarea onChange={(e) => this.onCodeChange(e)} rows="10" cols="20" />
+        <canvas ref="canvas" width="1000" height="500"/>
+        <Question question={this.props.match.params.number}/>
+        <textarea onChange={(e) => this.onCodeChange(e)} rows="10" cols="40" />
+
         <button onClick={() => this.onRun()}>Run Code</button>
         <button onClick={() => this.onSubmit()}>Submit Code</button>
-        <button onClick={() => this.toRight()}>Right</button>
-        <button onClick={() => this.toLeft()}>Left</button>
-        <button onClick={() => this.toUp()}>Up</button>
-        <button onClick={() => this.toDown()}>Down</button>
+
         <div>{this.state.transpiled}</div>
       </div>
     );
