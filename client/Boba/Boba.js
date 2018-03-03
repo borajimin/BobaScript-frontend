@@ -3,12 +3,13 @@ const directions = ["left", "up", "right", "down"];
 class Boba {
 
   constructor(ctx, x, y, radius, color) {
-    this.x = x;
-    this.y = y;
+    this.xCoordinate = x;
+    this.yCoordinate = y;
     this.radius = radius;
     this.color = color;
     this.ctx = ctx;
     this.direction = 2;
+    this.count = 0;
     this.directionalMoves = {
       right: () => this.moveRight(),
       left: () => this.moveLeft(),
@@ -26,13 +27,16 @@ class Boba {
   }
 
   move() {
+    this.count += 1;
     this.directionalMoves[directions[this.direction]]();
-    this.update();
+    let x = this.xCoordinate, y = this.yCoordinate;
+    setTimeout( () => this.update(x, y), 50 * this.count )
   }
 
-  update() {
+  update(x = this.xCoordinate, y = this.yCoordinate) {
+    this.ctx.clear();
     this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+    this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
     this.ctx.strokeStyle = this.color;
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
@@ -40,28 +44,29 @@ class Boba {
   }
 
   moveRight() {
-    if(this.x < 3000){
-      this.x += 7;
+    if(this.xCoordinate < 3000){
+      this.xCoordinate += 3;
     }
   }
 
   moveLeft() {
-    if(this.x > 0){
-      this.x -= 7;
+    if(this.xCoordinate > 0){
+      this.xCoordinate -= 3;
     }
   }
 
   moveUp() {
-    if(this.y > 0) {
-      this.y -= 7;
+    if(this.yCoordinate > 0) {
+      this.yCoordinate -= 3;
     }
   }
 
   moveDown() {
-    if(this.y < 3000){
-      this.y += 7;
+    if(this.yCoordinate < 3000){
+      this.yCoordinate += 3;
     }
   }
+
 }
 
 export default Boba;
