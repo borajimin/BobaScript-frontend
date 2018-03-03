@@ -9,6 +9,8 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+
 
 
 class App extends React.Component {
@@ -19,7 +21,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.history);
   }
 
 
@@ -29,7 +30,8 @@ class App extends React.Component {
         <AppBar
           iconElementLeft={
             <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              iconStyle={{'color': 'white'}}
+              iconButtonElement={<IconButton ><MoreVertIcon  /></IconButton>}
               anchorOrigin={{horizontal: 'left', vertical: 'top'}}
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
             >
@@ -47,7 +49,11 @@ class App extends React.Component {
           <Route path="/finish" component={Finish}/>
         </div>
         <footer className="App-footer">
-          <h4>Copyrights to Fran & Friends</h4>
+          <div>
+            <FlatButton label="ABOUT US" style={{"color": 'white'}} />
+            <FlatButton label="SUPPORT" style={{"color": 'white'}} />
+            <FlatButton label="JOBS" style={{"color": 'white'}} />
+          </div>
         </footer>
       </div>
     );

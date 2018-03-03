@@ -8,9 +8,8 @@ body {
 }
 
 .App-header {
-  padding: 10px 0;
   color: white;
-  position: sticky;
+  position: fixed !important;
   width: 100%;
   top: 0px;
   background-color: #fd595a;
@@ -29,5 +28,9 @@ body {
   bottom: 0;
   background-color: #52BAD1;
   width: 100%;
-  padding: 10px 0;
+  padding: 8px 0;
+}
+
+.startPageLogo {
+  height: 600px;
 }
