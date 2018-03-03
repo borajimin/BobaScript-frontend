@@ -1,3 +1,5 @@
+//naive answer
+
 while right of jasmine2 > xCoordinate of boba do
   boba will move
 end
@@ -21,6 +23,57 @@ while bottom of earlgrey1 < yCoordinate of boba do
 end
 
 boba will turnRight
+
+while left of fran > xCoordinate of boba do
+ boba will move
+end
+
+boba will turnRight
+
+while top of fran > yCoordinate of boba do
+ boba will move
+end
+
+
+//better answer
+
+while right of jasmine2 > xCoordinate of boba do
+  boba will move
+end
+
+if yCoordinate of boba > top of jasmine2 do
+  boba will turnLeft
+end
+
+while yCoordinate of boba > top of jasmine2 do
+  boba will move
+end
+
+boba will turnRight
+
+while right of chai2 > xCoordinate of boba do
+  boba will move
+end
+
+boba will turnLeft
+
+while bottom of earlgrey1 < yCoordinate of boba do
+ boba will move
+end
+
+boba will turnRight
+
+while left of chai3 > xCoordinate of boba do
+ boba will move
+end
+
+boba will turnRight
+
+while bottom of chai2 > yCoordinate of boba do
+ boba will move
+end
+
+boba will turnLeft
 
 while left of fran > xCoordinate of boba do
  boba will move
