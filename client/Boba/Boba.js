@@ -32,7 +32,7 @@ class Boba {
     this.directionalMoves[directions[this.direction]]();
     console.log("this.direction", this.direction);
     let x = this.xCoordinate, y = this.yCoordinate;
-    setTimeout( () => this.update(x, y), 2000 + 50 * this.count )
+    setTimeout( () => this.update(x, y), 50 * this.count )
   }
 
   update(x = this.xCoordinate, y = this.yCoordinate) {

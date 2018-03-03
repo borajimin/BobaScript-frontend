@@ -8,7 +8,9 @@ class Finish extends React.Component {
     this.state = {
     };
   }
-
+  componentDidMount() {
+    new Audio ("/finalSong.mp3").play()
+  }
   render() {
     return (
       <div className="backgroundFinal">
