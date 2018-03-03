@@ -5,12 +5,16 @@ import Question from './Question'
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-const BASE_URL="http://localhost:3000";
-
+const BASE_URL="https://e5cdf00d.ngrok.io";
+axios.defaults.withCredentials = true;
 
 class Test extends React.Component {
   constructor(props) {
     super(props);
+    this.canvasHeight = 0;
+    this.canvasWidth = 0;
+    this.textareaHeight = 0;
+    this.textareaWidth = 0;
     this.state = {
       code: null,
       boba: null,
@@ -49,36 +53,16 @@ class Test extends React.Component {
     });
   }
 
-  toRight() {
-    this.state.boba.moveRight();
-    this.state.boba.update();
-  }
-
-  toLeft() {
-    this.state.boba.moveLeft();
-    this.state.boba.update();
-  }
-
-  toUp() {
-    this.state.boba.moveUp();
-    this.state.boba.update();
-  }
-
-  toDown() {
-    this.state.boba.moveDown();
-    this.state.boba.update();
-  }
-
   onRun() {
     console.log("Runnging code: ", this.state.code);
-    axios.post(BASE_URL + "/submit", {
-      code: this.state.code
+    axios.post(BASE_URL + "/api/parseBobaScript", {
+      bobaScript: this.state.code
     })
       .then(code => {
-        this.setState({
-          transpiled: code,
-        })
-        eval(code);
+        console.log(code);
+        console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+        eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+        this.state.boba.update();
       })
       .catch(e => {
         console.log(e);
@@ -104,9 +88,13 @@ class Test extends React.Component {
   }
 
   render() {
+
     return (
       <div style={{"marginTop": "80px"}}>
-        <canvas ref="canvas" width={this.state.windowWidth * 0.9} height={this.state.windowHeight * 0.5}/>
+        <canvas
+          ref="canvas"
+          width={this.state.windowWidth * 0.9}
+          height={this.state.windowHeight * 0.5}/>
         <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
           <div style={{}}>
             <Question question={this.props.match.params.number}/>

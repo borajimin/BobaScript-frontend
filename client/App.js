@@ -58,9 +58,9 @@ class App extends React.Component {
             <FlatButton label="JOBS" style={{"color": 'white'}} />
           </div>
         </footer>
-      </div>
-    );
-  }
-}
+        </div>
+        );
+      }
+    }
 
-export default App;
+    export default App;
