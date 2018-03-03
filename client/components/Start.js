@@ -27,9 +27,9 @@ class Start extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <div>
-          <img className="startPageLogo" src={BobaScript} />
+          <img  className="startPageLogo" src={BobaScript} />
         </div>
         <TextField
           floatingLabelText="Username"
