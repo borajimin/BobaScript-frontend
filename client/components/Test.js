@@ -112,7 +112,10 @@ const CUPS = [[{
   right: 600,
   left: 450,
   value: 5
-}]];
+}], [
+
+  
+]];
 
 class Test extends React.Component {
   constructor(props) {

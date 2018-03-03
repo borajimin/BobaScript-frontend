@@ -1,10 +1,10 @@
-while xCoordinate of boba < right of greenTea do
+while xCoordinate of boba < right of oolong do
    boba will move
   end
 
 boba will turnRight
 
-while yCoordinate of boba < top of greenTea do
+while yCoordinate of boba < top of oolong do
    boba will move
    end
 
