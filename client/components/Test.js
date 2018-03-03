@@ -1,5 +1,6 @@
 import React from 'react';
 import Boba from '../Boba/Boba';
+import Cup from '../Boba/Cup';
 import axios from 'axios';
 import Question from './Question'
 import RaisedButton from 'material-ui/RaisedButton';
@@ -7,6 +8,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
 axios.defaults.withCredentials = true;
+
+const cups = [{
+  top: 100,
+  bottom: 200,
+  right: 200,
+  left: 100,
+  value: 10
+}];
 
 class Test extends React.Component {
   constructor(props) {
@@ -16,6 +25,7 @@ class Test extends React.Component {
     this.textareaHeight = 0;
     this.textareaWidth = 0;
     this.state = {
+      cup: {},
       code: null,
       boba: null,
       transpiled: null,
@@ -28,11 +38,17 @@ class Test extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
     window.addEventListener("resize", () => this.updateDimensions());
+    // const cup = cups[this.props.match.params.number + 1];
     this.setState({
+      // cup: new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value),
+      cup: new Cup(ctx, 100,200,200,100,10),
       boba: new Boba(ctx, 250, 125, 20, "cyan"),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
-    }, () => this.state.boba.update());
+    }, () => {
+      this.state.cup.draw();
+      this.state.boba.update();
+    });
   }
 
   componentWillUnmount() {
