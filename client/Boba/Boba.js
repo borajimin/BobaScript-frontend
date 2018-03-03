@@ -2,7 +2,7 @@ const directions = ["left", "up", "right", "down"];
 
 class Boba {
 
-  constructor(ctx, x, y, radius, color, cups) {
+  constructor(ctx, x, y, radius, color, cups, gameFunc = null) {
     this.xCoordinate = x;
     this.yCoordinate = y;
     this.radius = radius;
@@ -10,6 +10,7 @@ class Boba {
     this.ctx = ctx;
     this.direction = 2;
     this.count = 0;
+    this.func = gameFunc;
     this.directionalMoves = {
       right: () => this.moveRight(),
       left: () => this.moveLeft(),
@@ -28,22 +29,26 @@ class Boba {
   }
 
   move() {
-    this.count++;
+    let count = ++this.count;
     this.directionalMoves[directions[this.direction]]();
-    console.log("this.direction", this.direction);
+    if(this.func) this.func(this);
     let x = this.xCoordinate, y = this.yCoordinate;
-    setTimeout( () => this.update(x, y), 50 * this.count )
+    setTimeout( () => this.update(x, y, count < this.count), 50 * this.count )
   }
 
-  update(x = this.xCoordinate, y = this.yCoordinate) {
-    this.ctx.clear();
-    this.cupdate();
-    this.ctx.beginPath();
-    this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
-    this.ctx.strokeStyle = this.color;
-    this.ctx.fillStyle = this.color;
-    this.ctx.fill();
-    this.ctx.stroke();
+  update(x = this.xCoordinate, y = this.yCoordinate, shouldDraw = true) {
+    if(shouldDraw){
+      this.ctx.clear();
+
+      this.cupdate();
+
+      this.ctx.beginPath();
+      this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
+      this.ctx.strokeStyle = this.color;
+      this.ctx.fillStyle = this.color;
+      this.ctx.fill();
+      this.ctx.stroke();
+    }
   }
 
   cupdate() {
