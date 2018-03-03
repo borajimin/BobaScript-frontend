@@ -3,6 +3,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import Finish from './components/Finish';
 import Start from './components/Start';
+import Instructions from './components/Instructions';
 import Test from './components/Test';
 import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
@@ -32,8 +33,9 @@ class App extends React.Component {
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
             >
               <MenuItem primaryText="Start"  onClick={() => this.props.history.push('/')} />
-              <MenuItem primaryText="Test 1" onClick={() => this.props.history.push('/test1')} />
+              <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test')} />
               <MenuItem primaryText="Finish" onClick={() => this.props.history.push('/finish')} />
+              <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')} />
             </IconMenu>}
           title="BobaScript"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
@@ -43,6 +45,7 @@ class App extends React.Component {
           <Route exact path="/" component={Start}/>
           <Route path="/test/:number" component={Test}/>
           <Route path="/finish" component={Finish}/>
+          <Route path="/instructions" component={Instructions}/>
         </div>
         <footer className="App-footer">
           <h4>Copyrights to Fran & Friends</h4>
