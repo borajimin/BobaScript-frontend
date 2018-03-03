@@ -3,6 +3,11 @@ body {
   padding: 0;
 }
 
+canvas {
+  border: 1px solid #EEE;
+  border-radius: 5px;
+}
+
 .App {
   text-align: center;
 }
