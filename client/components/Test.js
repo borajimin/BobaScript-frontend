@@ -12,9 +12,9 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 
 const cups = [{
   top: 100,
-  bottom: 200,
-  right: 200,
-  left: 100,
+  bottom: 400,
+  right: 300,
+  left: 200,
   value: 10
 }];
 
@@ -51,6 +51,7 @@ class Test extends React.Component {
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
+      console.log("this.state.cup", this.state.cup);
       this.state.cup.draw();
       this.state.boba.update();
     });

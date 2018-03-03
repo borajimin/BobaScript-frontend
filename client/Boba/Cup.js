@@ -16,6 +16,7 @@ class Cup {
   }
 
   draw() {
+    console.log("inside cup draw");
     this.ctx.beginPath();
     this.ctx.rect(this.top, this.left, this.right - this.left, this.bottom - this.top);
     this.ctx.strokeStyle = this.color;
