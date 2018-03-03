@@ -10,13 +10,25 @@ import RaisedButton from 'material-ui/RaisedButton';
 const BASE_URL="https://e5cdf00d.ngrok.io";
 axios.defaults.withCredentials = true;
 
-const cups = [{
+const CUPS = [[{
   top: 300,
   bottom: 400,
   right: 200,
   left: 300,
   value: 10
-}];
+}, {
+  top: 200,
+  bottom: 350,
+  right: 600,
+  left: 450,
+  value: 10
+}, {
+  top: 100,
+  bottom: 200,
+  right: 600,
+  left: 500,
+  value: 10
+}]];
 
 class Test extends React.Component {
   constructor(props) {
@@ -40,14 +52,14 @@ class Test extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
     window.addEventListener("resize", () => this.updateDimensions());
-    const cup = cups[this.props.match.params.number - 1];
+    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value));
     this.setState({
-      cup: new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value),
+      cup: cups,
       boba: new Boba(ctx, 250, 125, 20, "cyan"),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
-      this.state.cup.draw();
+      this.state.cup.map(c => c.draw());
       this.state.boba.update();
     });
   }
@@ -83,7 +95,7 @@ class Test extends React.Component {
           });
         } else {
           console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-          eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
+          eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba').replace(/\bcup\b/g, 'this.state.cup'));
           this.state.boba.update();
         }
       })

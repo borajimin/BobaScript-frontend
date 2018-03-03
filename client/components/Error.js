@@ -7,7 +7,7 @@ class Error extends React.Component {
 
   render() {
     return (
-      <div style={{"color": "red", "margin": "20px"}}>
+      <div style={{"color": "red", "margin": "20px", "border": "1px solid red"}}>
         {this.props.message}
       </div>
     );
