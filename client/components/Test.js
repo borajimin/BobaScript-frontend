@@ -11,8 +11,6 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 
 
 const CUPS = [[{
-<<<<<<< HEAD
-=======
   top: 300,
   bottom: 400,
   right: 300,
@@ -25,7 +23,6 @@ const CUPS = [[{
   left: 450,
   value: 10
 }, {
->>>>>>> 2cf0aa70d7d2574c8b4b6389a881e426e315d97a
   top: 100,
   bottom: 200,
   right: 200,

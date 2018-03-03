@@ -1,7 +1,5 @@
 import React from 'react';
-import BobaScript from '../../public/bobaScriptlogo.png';
-
-
+// import BobaScript from '../../public/bobaScriptlogo.png';
 const instruction = {
   width: "80%",
   // height: "500px",
@@ -27,11 +25,7 @@ class Instructions extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <div style={{"marginTop": "80px", "flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1"}}>
-=======
-      <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1", "marginBottom": "100px"}}>
->>>>>>> 2cf0aa70d7d2574c8b4b6389a881e426e315d97a
         <div style = {instruction}>
           {/* <img src={BobaScript} alt="logo"></img> */}
           <h1>BobaScript Documentations</h1>
