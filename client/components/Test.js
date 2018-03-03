@@ -11,24 +11,27 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 
 
 const CUPS = [[{
-  top: 300,
-  bottom: 400,
-  right: 200,
-  left: 300,
-  value: 10
-}, {
-  top: 200,
-  bottom: 350,
-  right: 600,
-  left: 450,
-  value: 10
-}, {
   top: 100,
-  bottom: 400,
-  right: 300,
-  left: 200,
+  bottom: 200,
+  right: 200,
+  left: 100,
   value: 10
-}]];
+}
+// , {
+//   top: 200,
+//   bottom: 350,
+//   right: 600,
+//   left: 450,
+//   value: 10
+// }
+// , {
+//   top: 100,
+//   bottom: 400,
+//   right: 300,
+//   left: 200,
+//   value: 10
+// }
+]];
 
 class Test extends React.Component {
   constructor(props) {
