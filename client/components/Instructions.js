@@ -26,7 +26,7 @@ class Instructions extends React.Component {
 
   render() {
     return (
-      <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1"}}>
+      <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "center", "flex": "1", "marginBottom": "100px"}}>
         <div style = {instruction}>
           <h1>BobaScript Documentations</h1>
           <p>BobaScript (BS) is a lightweight interpreted or JIT-compiled programming language.
