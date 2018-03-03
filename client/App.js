@@ -34,32 +34,34 @@ class App extends React.Component {
               iconButtonElement={<IconButton ><MoreVertIcon  /></IconButton>}
               anchorOrigin={{horizontal: 'left', vertical: 'top'}}
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            >
-              <MenuItem primaryText="Start"  onClick={() => this.props.history.push('/')} />
-              <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test')} />
-              <MenuItem primaryText="Finish" onClick={() => this.props.history.push('/finish')} />
-              <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
-            </IconMenu>}
-          title="BobaScript"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-          className="App-header"
-        />
-        <div className="App-body">
-          <Route exact path="/" component={Start}/>
-          <Route path="/test/:number" component={Test}/>
-          <Route path="/finish" component={Finish}/>
-          <Route path="/instructions" component={Instructions}/>
-        </div>
-        <footer className="App-footer">
-          <div>
-            <FlatButton label="ABOUT US" style={{"color": 'white'}} />
-            <FlatButton label="SUPPORT" style={{"color": 'white'}} />
-            <FlatButton label="JOBS" style={{"color": 'white'}} />
+              >
+                <MenuItem primaryText="Start"  onClick={() => this.props.history.push('/')} />
+                <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test/1')} />
+                <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test/2')} />
+                <MenuItem primaryText="Test" onClick={() => this.props.history.push('/test/3')} />
+                <MenuItem primaryText="Finish" onClick={() => this.props.history.push('/finish')} />
+                <MenuItem primaryText="Instructions" onClick={() => this.props.history.push('/instructions')}/>
+              </IconMenu>}
+              title="BobaScript"
+              iconClassNameRight="muidocs-icon-navigation-expand-more"
+              className="App-header"
+            />
+            <div className="App-body">
+              <Route exact path="/" component={Start}/>
+              <Route path="/test/:number" component={Test}/>
+              <Route path="/finish" component={Finish}/>
+              <Route path="/instructions" component={Instructions}/>
+            </div>
+            <footer className="App-footer">
+              <div>
+                <FlatButton label="ABOUT US" style={{"color": 'white'}} />
+                <FlatButton label="SUPPORT" style={{"color": 'white'}} />
+                <FlatButton label="JOBS" style={{"color": 'white'}} />
+              </div>
+            </footer>
           </div>
-        </footer>
-      </div>
-    );
-  }
-}
+        );
+      }
+    }
 
-export default App;
+    export default App;
