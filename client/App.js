@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import Finish from './components/Finish';
 import Start from './components/Start';
 import Instructions from './components/Instructions';
@@ -38,7 +38,7 @@ class App extends React.Component {
             </IconMenu>}
           title="BobaScript"
           titleStyle={{"fontWeight": "bold"}}
-          iconElementRight = {<img src={BobaScript} width="50px" height="50px" alt="Logo" />}
+          iconElementRight = {<Link to="/"><img src={BobaScript} width="50px" height="50px" alt="Logo" /></Link>}
           className="App-header"
         />
         <div className="App-body">
