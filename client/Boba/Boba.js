@@ -3,8 +3,8 @@ const directions = ["left", "up", "right", "down"];
 class Boba {
 
   constructor(ctx, x, y, radius, color) {
-    this.x = x;
-    this.y = y;
+    this.xCoordinate = x;
+    this.yCoordinate = y;
     this.radius = radius;
     this.color = color;
     this.ctx = ctx;
@@ -32,7 +32,7 @@ class Boba {
 
   update() {
     this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+    this.ctx.arc(this.xCoordinate, this.yCoordinate, this.radius, 0, 2*Math.PI);
     this.ctx.strokeStyle = this.color;
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
@@ -40,26 +40,26 @@ class Boba {
   }
 
   moveRight() {
-    if(this.x < 3000){
-      this.x += 7;
+    if(this.xCoordinate < 3000){
+      this.xCoordinate += 7;
     }
   }
 
   moveLeft() {
-    if(this.x > 0){
-      this.x -= 7;
+    if(this.xCoordinate > 0){
+      this.xCoordinate -= 7;
     }
   }
 
   moveUp() {
-    if(this.y > 0) {
-      this.y -= 7;
+    if(this.yCoordinate > 0) {
+      this.yCoordinate -= 7;
     }
   }
 
   moveDown() {
-    if(this.y < 3000){
-      this.y += 7;
+    if(this.yCoordinate < 3000){
+      this.yCoordinate += 7;
     }
   }
 }
