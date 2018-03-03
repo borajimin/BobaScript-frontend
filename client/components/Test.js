@@ -6,9 +6,7 @@ import Question from './Question';
 import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
 const BASE_URL="https://e5cdf00d.ngrok.io";
-
 
 const CUPS = [[{
   top: 300,

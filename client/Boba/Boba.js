@@ -2,8 +2,7 @@ const directions = ["left", "up", "right", "down"];
 
 class Boba {
 
-  constructor(ctx, x, y, radius, color, cups, gameFunc) {
-    console.log(gameFunc);
+  constructor(ctx, x, y, radius, color, cups, gameFunc = null) {
     this.xCoordinate = x;
     this.yCoordinate = y;
     this.radius = radius;
@@ -22,21 +21,17 @@ class Boba {
   }
 
   turnRight(){
-    console.log("TURNING RIGHT");
     this.direction = (this.direction + 1) % 4;
   }
 
   turnLeft(){
-    console.log("TURNING LEFT");
     this.direction = (this.direction - 1) % 4;
   }
 
   move() {
     let count = ++this.count;
-    console.log("ON THE MOVE!");
     this.directionalMoves[directions[this.direction]]();
-    let score = this.func(this);
-    console.log(score);
+    if(this.func) this.func(this);
     let x = this.xCoordinate, y = this.yCoordinate;
     setTimeout( () => this.update(x, y, count < this.count), 50 * this.count )
   }
