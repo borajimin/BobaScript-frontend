@@ -16,11 +16,6 @@ const tab = { display: "inline-block", marginLeft: "40px"};
 class Instructions extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
-  }
-
-  componentDidMount() {
   }
 
 
