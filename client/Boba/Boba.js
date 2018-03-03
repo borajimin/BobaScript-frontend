@@ -20,25 +20,26 @@ class Boba {
   }
 
   turnRight(){
-    this.direction = this.direction + 1 % 4;
+    this.direction = (this.direction + 1 ) % 4;
+    console.log("inside turnRight", this.direction);
   }
 
   turnLeft(){
-    this.direction = this.direction - 1 % 4;
+    this.direction = (this.direction - 1 )% 4;
+    console.log("inside turnLeft", this.direction);
   }
 
   move() {
     this.count++;
     this.directionalMoves[directions[this.direction]]();
+    console.log("this.direction", this.direction);
     let x = this.xCoordinate, y = this.yCoordinate;
     setTimeout( () => this.update(x, y), 2000 + 50 * this.count )
   }
 
   update(x = this.xCoordinate, y = this.yCoordinate) {
     this.ctx.clear();
-
     this.cupdate();
-
     this.ctx.beginPath();
     this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
     this.ctx.strokeStyle = this.color;

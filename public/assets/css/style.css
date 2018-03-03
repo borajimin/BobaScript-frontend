@@ -1,6 +1,14 @@
 body {
   margin: 0px;
-  padding: 0; }
+  padding: 0;
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter",
+
+}
+
+h1 h2 h3 h4 h5 p {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter",
+
+}
 
 canvas {
   border: 1px solid #EEE;

@@ -11,39 +11,42 @@ const BASE_URL="https://e5cdf00d.ngrok.io";
 
 
 const CUPS = [[{
-  top: 300,
-  bottom: 400,
-  right: 300,
-  left: 200,
-  value: 10
+  top: 30,
+  bottom: 80,
+  right: 200,
+  left: 150,
+  value: 10,
+  color: "black"
+  //bobas
 }, {
   top: 200,
-  bottom: 350,
-  right: 600,
+  bottom: 250,
+  right: 350,
+  left: 300,
+  value: 10,
+  color: "lightgreen"
+  //greentea
+}, {
+  top: 200,
+  bottom: 250,
+  right: 500,
   left: 450,
-  value: 10
+  value: 10,
+  color: "lightgrey"
+  //milk
 }, {
   top: 100,
-  bottom: 200,
-  right: 200,
-  left: 100,
-  value: 10
-}
-// , {
-//   top: 200,
-//   bottom: 350,
-//   right: 600,
-//   left: 450,
-//   value: 10
-// }
-// , {
-//   top: 100,
-//   bottom: 400,
-//   right: 300,
-//   left: 200,
-//   value: 10
-// }
-]];
+  bottom: 150,
+  right: 650,
+  left: 600,
+  value: 10,
+  color: "yellow"
+  //jelly
+}]];
+
+const BOBAS = [
+  {x: 100, y: 100, radius: 20, color: "grey"},
+  {}, {}];
 
 class Test extends React.Component {
   constructor(props) {
@@ -53,7 +56,6 @@ class Test extends React.Component {
     this.textareaHeight = 0;
     this.textareaWidth = 0;
     this.state = {
-      errorMessage: "",
       cup: {},
       code: null,
       boba: null,
@@ -71,10 +73,10 @@ class Test extends React.Component {
       ctx.clearRect(0, 0, 3000, 3000);
     }
     window.addEventListener("resize", () => this.updateDimensions());
-    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value));
+    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
     this.setState({
       cup: cups,
-      boba: new Boba(ctx, 250, 125, 20, "cyan", cups),
+      boba: new Boba(ctx, 50, 50, 20, "cyan", cups),
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
     }, () => {
@@ -116,7 +118,16 @@ class Test extends React.Component {
           });
         } else {
           console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-          eval(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba').replace(/\bcup\b/g, 'this.state.cup'));
+          eval(code.data.javascript.replace(
+            /\bboba\b/g, 'this.state.boba').replace(
+            /\bcup\b/g, 'this.state.cup').replace(
+            /\btapioca\b/g, 'this.state.cup[0]').replace(
+            /\bgreenTea\b/g, 'this.state.cup[1]').replace(
+            /\bmilk\b/g, 'this.state.cup[2]').replace(
+            /\bjelly\b/g, 'this.state.cup[3]')
+          );
+          console.log("tapioca", this.state.cup[0]);
+          console.log("x", this.state.boba.yCoordinate);
           this.state.boba.update();
         }
       })
@@ -152,7 +163,7 @@ class Test extends React.Component {
           width={this.state.windowWidth * 0.9}
           height={this.state.windowHeight * 0.5}/>
         <div style={{"flexDirection": "row", "display": "flex", "justifyContent": "center"}}>
-          <div>
+          <div style={{}}>
             <Question question={this.props.match.params.number}/>
             {(this.state.error) ? <Error message={this.state.error}/> : <div></div>}
           </div>
@@ -162,10 +173,6 @@ class Test extends React.Component {
               onChange={(e) => this.onCodeChange(e)}
               rows={Math.floor(this.state.windowHeight * 0.02)}
               cols={Math.floor(this.state.windowWidth * 0.06)}/>
-            {this.state.errorMessage.length > 0 ?
-              <div style={{"color": "red", "border": "2px solid red", "backgroundColor": "pink"}}>
-              Error Message:{this.state.errorMessage}
-              </div> : <div/>}
           </div>
           <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "flex-end"}}>
             <RaisedButton style={{"margin": "10px"}} onClick={() => this.onRun()} label="Run Code" primary={true} />

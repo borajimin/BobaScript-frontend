@@ -5,13 +5,13 @@ const randomColor = () => {
   return COLORS[rand];
 }
 class Cup {
-  constructor(ctx, top, bottom, left, right, value) {
+  constructor(ctx, top, bottom, left, right, value, color) {
     this.top = top;
     this.bottom = bottom;
     this.left = left;
     this.right = right;
     this.value = value;
-    this.color = (typeof value === "string") ? value : randomColor();
+    this.color = color;
     this.ctx = ctx;
   }
 
