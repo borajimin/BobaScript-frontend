@@ -181,6 +181,10 @@ class Test extends React.Component {
     window.removeEventListener("resize", () => this.updateDimensions());
   }
 
+  componentWillReceiveProps(nextProps) {
+    location.reload();
+  }
+
   updateDimensions() {
     this.setState({
       windowHeight: window.innerHeight,
