@@ -7,7 +7,7 @@ import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
 import { CUPS, BOBAS } from '../Boba/QuizInfo';
 
-const BASE_URL="https://e5cdf00d.ngrok.io";
+const BASE_URL="http://localhost:3001";
 
 class Test extends React.Component {
   constructor(props) {
@@ -109,11 +109,13 @@ class Test extends React.Component {
       bobaScript: this.state.code
     })
       .then(code => {
+        console.log(code.data);
         if(!code.data.success) {
           this.setState({
             error: `Error at line: ${code.data.error.hash.line};
             Expected: ${code.data.error.hash.expected}`,
           });
+          console.log("here");
         } else {
           eval(code.data.javascript
             .replace(/\bboba\b/g, 'this.state.boba')
