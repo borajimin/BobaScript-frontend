@@ -8,6 +8,8 @@ const webpack               = require('webpack');
 const webpackDevMiddleware  = require("webpack-dev-middleware");
 const webpackHotMiddleware  = require('webpack-hot-middleware');
 const config                = require('./webpack.config');
+const api = require('./backend/routes');
+
 
 const app               = express();
 const server            = require('http').Server(app);
@@ -58,6 +60,8 @@ app.post('/run', (req, res) => {
 app.post('/submit', (req, res) => {
   res.send(req.body.code);
 })
+
+app.use('/api', api);
 
 const port = process.env.PORT || 3001;
 server.listen(port, () => {
