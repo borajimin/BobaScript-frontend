@@ -187,7 +187,7 @@ class Test extends React.Component {
           <div style={{"marginLeft": "100px", "marginTop": "20px"}}>
             <textarea
               ref="textarea"
-              style={{"padding": "10px"}}
+              style={{"padding-top": "10px", "padding-left": "35px"}}
               onChange={(e) => this.onCodeChange(e)}
               onKeyDown={(e) => this.onKeyDown(e)}
               rows={Math.floor(this.state.windowHeight * 0.02)}

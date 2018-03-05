@@ -5,6 +5,13 @@ body {
   font-family: "Courier New", Times, serif;
 }
 
+textarea{
+  background: url(http://i.imgur.com/2cOaJ.png);
+background-attachment: local;
+background-repeat: no-repeat;
+  border-color:#ccc;
+}
+
 canvas {
   border: 1px solid black;
   border-radius: 5px;
