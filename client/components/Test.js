@@ -5,121 +5,9 @@ import axios from 'axios';
 import Question from './Question';
 import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
+import { CUPS, BOBAS } from '../Boba/QuizInfo';
 
 const BASE_URL="https://e5cdf00d.ngrok.io";
-
-
-const BOBAS = [{
-  x: 50,
-  y: 50,
-  color: "lightblue"
-}, {
-  x: 22,
-  y: 275,
-  color: "lightpink"
-}, {
-  x: 500,
-  y: 150,
-  color: "cyan"
-}]
-
-const CUPS = [[{
-  top: 30,
-  bottom: 80,
-  right: 200,
-  left: 150,
-  value: 10,
-  color: "black"
-  //bobas
-}, {
-  top: 200,
-  bottom: 250,
-  right: 350,
-  left: 300,
-  value: 10,
-  color: "lightgreen"
-  //oolong
-}, {
-  top: 200,
-  bottom: 250,
-  right: 500,
-  left: 450,
-  value: 10,
-  color: "lightgrey"
-  //milk
-}, {
-  top: 100,
-  bottom: 150,
-  right: 650,
-  left: 600,
-  value: 10,
-  color: "yellow"
-  //jelly
-}], [{
-  top: 400,
-  bottom: 450,
-  right: 100,
-  left: 50,
-  color: "#d0f0c0"
-},  {
-  top: 200,
-  bottom: 250,
-  right: 250,
-  left: 200,
-  color: "#d0f0c0"
-}, {
-  top: 30,
-  bottom: 80,
-  right: 100,
-  left:50,
-  color: "#d0ad90"
-}, {
-  top: 200,
-  bottom: 250,
-  right: 600,
-  left: 550,
-  color: "#d0ad90"
-}, {
-  top: 375,
-  bottom: 425,
-  right: 950,
-  left: 900,
-  color: "#d0ad90"
-}, {
-  top: 100,
-  bottom: 150,
-  right: 1150,
-  left: 1100,
-  color: "#d0ad90"
-}, {
-  top: 20,
-  bottom: 70,
-  right: 650,
-  left: 600,
-  color: "#5a2121"
-}, {
-  top: 400,
-  bottom: 450,
-  right: 1250,
-  left: 1200,
-  color: "black"
-}], [{
-  top: 100,
-  bottom: 200,
-  right: 400,
-  left: 300,
-  value: 12,
-  color: "green"
-},
-{
-  top: 100,
-  bottom: 200,
-  right: 700,
-  left: 600,
-  value: 4,
-  color: "red"
-}]];
-
 
 class Test extends React.Component {
   constructor(props) {
@@ -145,7 +33,8 @@ class Test extends React.Component {
       this.ctx.clearRect(0, 0, 3000, 3000);
     }
     window.addEventListener("resize", () => this.updateDimensions());
-    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(this.ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
+    const cups = CUPS[this.props.match.params.number - 1].map(cup =>
+      new Cup(this.ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
     let { x, y, color } = BOBAS[this.props.match.params.number - 1];
     this.setState({
       cup: cups,
@@ -166,7 +55,8 @@ class Test extends React.Component {
     this.ctx.clear = () => {
       this.ctx.clearRect(0, 0, 3000, 3000);
     }
-    const cups = CUPS[this.props.match.params.number - 1].map(cup => new Cup(this.ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
+    const cups = CUPS[this.props.match.params.number - 1].map(cup =>
+      new Cup(this.ctx, cup.top, cup.bottom, cup.left, cup.right, cup.value, cup.color));
     const boba = BOBAS[this.props.match.params.number - 1];
     this.setState({
       cup: cups,
@@ -181,10 +71,6 @@ class Test extends React.Component {
     window.removeEventListener("resize", () => this.updateDimensions());
   }
 
-  componentWillReceiveProps(nextProps) {
-    location.reload();
-  }
-
   updateDimensions() {
     this.setState({
       windowHeight: window.innerHeight,
@@ -197,7 +83,10 @@ class Test extends React.Component {
 
     return (boba) => {
       this.state.cup.map((cup, index) => {
-        if( (boba.xCoordinate < cup.right && boba.xCoordinate > cup.left) || (boba.yCoordinate > cup.bottom && boba.yCoordinate < cup.top)){
+        if( (boba.xCoordinate < cup.right
+          && boba.xCoordinate > cup.left)
+          || (boba.yCoordinate > cup.bottom
+          && boba.yCoordinate < cup.top)){
           cup.value += cupsVisited[index] ? 0 : (index + 2) ;
           if(!cupsVisited[index]) cupsVisited[index] = true;
         } else {
@@ -216,21 +105,16 @@ class Test extends React.Component {
   }
 
   onRun() {
-    console.log("Runnging code: ", this.state.code);
     axios.post(BASE_URL + "/api/parseBobaScript", {
       bobaScript: this.state.code
     })
       .then(code => {
-        console.log(code);
         if(!code.data.success) {
           this.setState({
             error: `Error at line: ${code.data.error.hash.line};
             Expected: ${code.data.error.hash.expected}`,
           });
         } else {
-
-          console.log(code.data.javascript.replace(/\bboba\b/g, 'this.state.boba'));
-          console.log("this.state.cup", this.state.cup);
           eval(code.data.javascript
             .replace(/\bboba\b/g, 'this.state.boba')
             .replace(/\bjasmine1\b/g, 'this.state.cup[0]')
@@ -281,9 +165,21 @@ class Test extends React.Component {
               cols={Math.floor(this.state.windowWidth * 0.06)}/>
           </div>
           <div style={{"flexDirection": "column", "display": "flex", "justifyContent": "flex-end"}}>
-            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onReset()} label="Reset" secondary={true} />
-            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onRun()} label="Run Code" primary={true} />
-            <RaisedButton style={{"margin": "10px"}} onClick={() => this.onNext()} label="Next" secondary={true} />
+            <RaisedButton
+              style={{"margin": "10px"}}
+              onClick={() => this.onReset()}
+              label="Reset"
+              secondary={true} />
+            <RaisedButton
+              style={{"margin": "10px"}}
+              onClick={() => this.onRun()}
+              label="Run Code"
+              primary={true} />
+            <RaisedButton
+              style={{"margin": "10px"}}
+              onClick={() => this.onNext()}
+              label="Next"
+              secondary={true} />
           </div>
         </div>
       </div>

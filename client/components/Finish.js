@@ -1,6 +1,4 @@
 import React from 'react';
-// import BobaScript from '../../public/bobaScriptlogo.png'
-
 
 class Finish extends React.Component {
   constructor(props) {
