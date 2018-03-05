@@ -7,7 +7,8 @@ import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
 import { CUPS, BOBAS } from '../Boba/QuizInfo';
 
-const BASE_URL="https://e5cdf00d.ngrok.io";
+// const BASE_URL="https://e5cdf00d.ngrok.io";
+const BASE_URL="http://localhost:3001";
 
 class Test extends React.Component {
   constructor(props) {
@@ -109,6 +110,7 @@ class Test extends React.Component {
       bobaScript: this.state.code
     })
       .then(code => {
+        console.log(code)
         if(!code.data.success) {
           this.setState({
             error: `Error at line: ${code.data.error.hash.line};
@@ -145,6 +147,21 @@ class Test extends React.Component {
     this.props.history.push(whereTo);
   }
 
+  onKeyDown(e) {
+    let code = e.target.value.slice(),
+      start = e.target.selectionStart,
+      end = e.target.selectionEnd;
+    if(e.keyCode === 9) {
+      e.preventDefault();
+      e.target.value = code.substring(0, start) + "  " + code.substring(end);
+      this.refs.textarea.selectionStart = this.refs.textarea.selectionEnd = start + 2;
+    } else if(e.keyCode === 13 && code.substring(start - 2, start) === "do") {
+      e.preventDefault();
+      e.target.value = code.substring(0, start) + '\n' + "  " + '\n' + "end" + code.substring(end);
+      this.refs.textarea.selectionStart = this.refs.textarea.selectionEnd = start + 3;
+    }
+  }
+
   render() {
     return (
       <div style={{"marginTop": "80px"}}>
@@ -159,8 +176,10 @@ class Test extends React.Component {
           </div>
           <div style={{"marginLeft": "100px", "marginTop": "20px"}}>
             <textarea
+              ref="textarea"
               style={{"padding": "10px"}}
               onChange={(e) => this.onCodeChange(e)}
+              onKeyDown={(e) => this.onKeyDown(e)}
               rows={Math.floor(this.state.windowHeight * 0.02)}
               cols={Math.floor(this.state.windowWidth * 0.06)}/>
           </div>
