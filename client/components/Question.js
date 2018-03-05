@@ -16,13 +16,12 @@ class Question extends React.Component {
        From the left side of the canvas to right, each shops are named with
        with the type and the instance of it. For example, the chai shop in
        upper left corner is named 'chai1'.`,
-      3: `This is the last question, the ultimate challenge, the final boss.
-       Your task is simple... You see those two squares?
-       They both have an unknown value associated with them.
+      3: `Both squares have an unknown value associated with them.
        Upon touching the green square, it's value will increase by 2,
        while the red sqaure's value will increase by 3.
        Devise an algorithm in BobaScript to modify the values
-       of both respective squares so that they equal each other.`
+       of both respective squares so that they equal each other. To refer to the
+       two squares, use the name "green" and "red".`
     }
   }
 
