@@ -35,7 +35,11 @@ class Start extends React.Component {
           floatingLabelText="Username"
           onChange={(e) => this.onChange(e)}
         /><br />
-        <RaisedButton onClick={() => this.saveName()} label="Start Quiz" primary={true} style={{"marginTop": '10px'}} />
+        <RaisedButton
+          onClick={() => this.saveName()}
+          label="Start Quiz"
+          primary={true}
+          style={{"marginTop": '10px'}} />
       </div>
     );
   }

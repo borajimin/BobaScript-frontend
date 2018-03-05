@@ -1,11 +1,9 @@
 import React from 'react';
-// import BobaScript from '../../public/bobaScriptlogo.png';
+
 const instruction = {
   width: "80%",
-  // height: "500px",
   alignItem: "left",
   margin: "auto",
-  // border: "2px solid black",
   textAlign: "left"
 }
 
