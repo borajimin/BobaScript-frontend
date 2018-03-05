@@ -7,7 +7,6 @@ import Error from './Error';
 import RaisedButton from 'material-ui/RaisedButton';
 import { CUPS, BOBAS } from '../Boba/QuizInfo';
 
-// const BASE_URL="https://e5cdf00d.ngrok.io";
 const BASE_URL="http://localhost:3001";
 
 class Test extends React.Component {
@@ -110,30 +109,41 @@ class Test extends React.Component {
       bobaScript: this.state.code
     })
       .then(code => {
-        console.log(code)
         if(!code.data.success) {
           this.setState({
             error: `Error at line: ${code.data.error.hash.line};
             Expected: ${code.data.error.hash.expected}`,
           });
+          console.log("here");
         } else {
-          eval(code.data.javascript
-            .replace(/\bboba\b/g, 'this.state.boba')
-            .replace(/\bjasmine1\b/g, 'this.state.cup[0]')
-            .replace(/\bjasmine2\b/g, 'this.state.cup[1]')
-            .replace(/\bchai1\b/g, 'this.state.cup[2]')
-            .replace(/\bchai2\b/g, 'this.state.cup[3]')
-            .replace(/\bchai3\b/g, 'this.state.cup[4]')
-            .replace(/\bchai4\b/g, 'this.state.cup[5]')
-            .replace(/\bearlgrey1\b/g, 'this.state.cup[6]')
-            .replace(/\bfran\b/g, 'this.state.cup[7]')
-            .replace(/\bred\b/g, 'this.state.cup[1]')
-            .replace(/\bgreen\b/g, 'this.state.cup[0]')
-            .replace(/\btapioca\b/g, 'this.state.cup[0]')
-            .replace(/\boolong\b/g, 'this.state.cup[1]')
-            .replace(/\bmilk\b/g, 'this.state.cup[2]')
-            .replace(/\bjelly\b/g, 'this.state.cup[3]'))
-          this.state.boba.update();
+          try{
+            eval(code.data.javascript
+              .replace(/\bboba\b/g, 'this.state.boba')
+              .replace(/\bjasmine1\b/g, 'this.state.cup[0]')
+              .replace(/\bjasmine2\b/g, 'this.state.cup[1]')
+              .replace(/\bchai1\b/g, 'this.state.cup[2]')
+              .replace(/\bchai2\b/g, 'this.state.cup[3]')
+              .replace(/\bchai3\b/g, 'this.state.cup[4]')
+              .replace(/\bchai4\b/g, 'this.state.cup[5]')
+              .replace(/\bearlgrey1\b/g, 'this.state.cup[6]')
+              .replace(/\bfran\b/g, 'this.state.cup[7]')
+              .replace(/\bred\b/g, 'this.state.cup[1]')
+              .replace(/\bgreen\b/g, 'this.state.cup[0]')
+              .replace(/\btapioca\b/g, 'this.state.cup[0]')
+              .replace(/\boolong\b/g, 'this.state.cup[1]')
+              .replace(/\bmilk\b/g, 'this.state.cup[2]')
+              .replace(/\bjelly\b/g, 'this.state.cup[3]'))
+              this.state.boba.update();
+              this.setState({
+                error: null
+              })
+          } catch (e) {
+            this.state.boba.update();
+            console.log(e.message);
+            this.setState({
+              error: e.message
+            })
+          }
         }
       })
       .catch(e => {
