@@ -20,11 +20,21 @@ class Boba {
     this.cups = cups;
   }
 
+  checkForError(){
+    if(this.count > 100000) throw new Error("CALL STACK EXCEEDED");
+    if(this.xCoordinate > 1500 || this.xCoordinate < 0) throw new Error("BOBA OUT OF BOUNDS");
+    if(this.yCoordinate > 1000 || this.xCoordinate < 0) throw new Error("BOBA OUT OF BOUNDS");
+  }
+
   turnRight(){
+    ++this.count;
+    this.checkForError();
     this.direction = (this.direction + 1) % 4;
   }
 
   turnLeft(){
+    ++this.count;
+    this.checkForError();
     this.direction = (this.direction - 1) % 4;
   }
 
@@ -33,6 +43,7 @@ class Boba {
     this.directionalMoves[directions[this.direction]]();
     if(this.func) this.func(this);
     let x = this.xCoordinate, y = this.yCoordinate;
+    this.checkForError();
     setTimeout( () => this.update(x, y, count < this.count), 50 * this.count )
   }
 
