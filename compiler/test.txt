@@ -1,0 +1,9 @@
+
+if xCoordinate of boba > yCoordinate of boba do boba will move end
+
+while xCoordinate of boba > yCoordinate of boba
+  do boba will turnLeft
+  finish
+end
+
+finish
