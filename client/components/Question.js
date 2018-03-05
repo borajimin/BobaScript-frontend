@@ -13,10 +13,9 @@ class Question extends React.Component {
        and each color of the boxes represent the types of tea.
        Jasmine tea shops are light green, chai tea shops are chai,
        earlgrey tea shops are brown, Fran's house is black.
-       Jasmine tea shop: light green;
-       Chai tea shop: chai;
-       Earlgrey tea shop: brown;
-       Fran's house: black;`,
+       From the left side of the canvas to right, each shops are named with
+       with the type and the instance of it. For example, the chai shop in
+       upper left corner is named 'chai1'.`,
       3: `This is the last question, the ultimate challenge, the final boss.
        Your task is simple... You see those two squares?
        They both have an unknown value associated with them.
